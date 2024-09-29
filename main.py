@@ -51,4 +51,21 @@ Y = dataset['GLD']
 
 X_train, X_test, Y_train, Y_test = train_test_split(X,Y, train_size=0.8, random_state=1)
 
-print(X.shape, X_test.shape, X_train.shape)
+# print(X.shape, X_test.shape, X_train.shape)
+
+# TRAINING THE MODEL
+
+regressor = RandomForestRegressor(n_estimators = 100)
+regressor.fit(X_train, Y_train)
+
+# MODEL EVALUATION
+
+# Evaluating for Training data
+training_data_prediction = regressor.predict(X_train)
+error_score = metrics.r2_score(training_data_prediction, Y_train)
+print('R Squared Mean for training data is:', error_score)
+
+# Evaluating for Testing data
+testing_data_prediction = regressor.predict(X_test)
+error_score = metrics.r2_score(testing_data_prediction, Y_test)
+print('R Squared Mean for testing data is:', error_score)
